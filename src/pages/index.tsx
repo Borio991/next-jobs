@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Inter } from "next/font/google";
 import { db } from "@/server/db";
-import { PrismaClient } from "@prisma/client";
+import { signIn } from "next-auth/react";
 
 const inter = Inter({ subsets: ["latin"] });
 

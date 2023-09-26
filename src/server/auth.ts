@@ -6,7 +6,8 @@ import {
   type NextAuthOptions,
 } from "next-auth";
 import { db } from "./db";
-
+import CredentialsProvider from "next-auth/providers/credentials";
+import bcrypt from "bcryptjs";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -35,15 +36,15 @@ declare module "next-auth" {
  * @see https://next-auth.js.org/configuration/options
  */
 export const authOptions: NextAuthOptions = {
-  callbacks: {
-    session: ({ session, user }) => ({
-      ...session,
-      user: {
-        ...session.user,
-        id: user.id,
-      },
-    }),
-  },
+  // callbacks: {
+  //   session: ({ session, user }) => ({
+  //     ...session,
+  //     user: {
+  //       ...session.user,
+  //       id: user.id,
+  //     },
+  //   }),
+  // },
   adapter: PrismaAdapter(db),
   providers: [
     /**
@@ -55,7 +56,47 @@ export const authOptions: NextAuthOptions = {
      *
      * @see https://next-auth.js.org/providers/github
      */
+    CredentialsProvider({
+      name: "Credentials",
+      credentials: {
+        email: { label: "Email", type: "text" },
+        password: { label: "Password", type: "password" },
+      },
+
+      async authorize(credentials) {
+        const { email, password } = credentials as any;
+        if (!email || !password) {
+          return null;
+        }
+        try {
+          const user = await db.user.findFirst({
+            where: { email },
+          });
+
+          if (!user) {
+            return null;
+          }
+
+          const passwordsMatch = await bcrypt.compare(password!, user.password);
+
+          if (!passwordsMatch) {
+            return null;
+          }
+          return user;
+        } catch (error) {
+          console.log("something went wrong , can't sign in : ", error);
+          return null;
+        }
+      },
+    }),
   ],
+  secret: process.env.NEXTAUTH_SECRET,
+  session: {
+    strategy: "jwt",
+  },
+  pages: {
+    signIn: "/auth/SignIn",
+  },
 };
 
 /**
