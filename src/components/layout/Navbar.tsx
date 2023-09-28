@@ -7,9 +7,11 @@ function Navbar() {
   return (
     <div className="navbar bg-base-100">
       <div className="flex-1">
-        <a className="btn btn-ghost normal-case text-xl">daisyUI</a>
+        <Link href="/" className="btn btn-ghost normal-case text-xl">
+          daisyUI
+        </Link>
         <div className="flex flex-row gap-x-8">
-          <Link href="/dashboard">Dashboard</Link>
+          <Link href="/dashboard">Protected</Link>
           <Link href="/Admin">Admin</Link>
           <Link href="/authPages/RegisterPage">Sign Up</Link>
         </div>

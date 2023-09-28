@@ -14,14 +14,6 @@ export const createJWT = (user: User) => {
   return token;
 };
 
-interface SignOption {
-  expiresIn?: string | number;
-}
-
-// const DEFAULT_SIGN_OPTION: SignOption = {
-//   expiresIn: "1h",
-// };
-
 interface Payload extends JwtPayload {
   id: string;
   email: string;
@@ -34,7 +26,7 @@ export function verifyJwt(token: string) {
     const decoded = jwt.verify(token, secret_key!);
     return decoded as Payload;
   } catch (error) {
-    console.log(error);
+    console.log("error veryfing token");
     return null;
   }
 }
