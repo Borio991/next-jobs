@@ -15,15 +15,14 @@ export default async function handler(
 ) {
   const session = await getServerSession(req, res, authOptions);
 
-  // console.log("session from api:", session);
-  // const accessToken = req.headers.authorization?.split(" ")[1];
-  // if (!accessToken) {
-  //   return res.status(401).json({ name: "Unauthorized" });
-  // }
-  // if (!verifyJwt(accessToken)) {
-  //   return res.status(401).json({ name: "Unauthorized" });
-  // }
-  // const payload = verifyJwt(accessToken);
+  const accessToken = req.headers.authorization?.split(" ")[1];
+  if (!accessToken) {
+    return res.status(401).json({ name: "Unauthorized" });
+  }
+  if (!verifyJwt(accessToken)) {
+    return res.status(401).json({ name: "Unauthorized" });
+  }
+  const payload = verifyJwt(accessToken);
   if (session?.user.role !== "admin") {
     return res.status(403).json({ name: "only admin can acces this" });
   }

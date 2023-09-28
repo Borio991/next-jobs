@@ -4,6 +4,7 @@ import React from "react";
 
 function Navbar() {
   const { data: session } = useSession();
+  console.log(session);
   return (
     <div className="navbar bg-base-100">
       <div className="flex-1">
@@ -12,7 +13,7 @@ function Navbar() {
         </Link>
         <div className="flex flex-row gap-x-8">
           <Link href="/dashboard">Protected</Link>
-          <Link href="/Admin">Admin</Link>
+          <Link href="/admin">Admin</Link>
           <Link href="/authPages/RegisterPage">Sign Up</Link>
         </div>
       </div>

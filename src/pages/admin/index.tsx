@@ -9,7 +9,6 @@ export default Admin;
 
 export async function getServerSideProps(context: any) {
   const session = await getServerSession(context.req, context.res, authOptions);
-
   const res = await fetch("http://localhost:3000/api/hello", {
     method: "GET",
     headers: {

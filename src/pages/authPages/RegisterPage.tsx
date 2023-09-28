@@ -13,7 +13,6 @@ function RegisterPage() {
     mode: "all",
   });
   async function onSubmit(values: FieldValues, e: any) {
-    console.log("values 1", values);
     e.preventDefault();
     try {
       const res = await fetch("http://localhost:3000/api/auth/register", {

@@ -4,9 +4,8 @@ import React from "react";
 function Dashboard() {
   const { data } = useSession();
   if (!data?.user) {
-    return <div>only authorized can see this page</div>;
+    return <div>access denied : only authorized can see this page</div>;
   }
-  console.log("session :", data);
 
   return (
     <div>
