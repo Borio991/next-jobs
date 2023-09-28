@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FieldValues, useForm } from "react-hook-form";
 
-function SignIn() {
+function SignInPage() {
   const router = useRouter();
   const {
     control,
@@ -80,7 +80,7 @@ function SignIn() {
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                 Don’t have an account yet?{" "}
                 <Link
-                  href="/auth/Register"
+                  href="/authPages/RegisterPage"
                   className="font-medium text-primary-600 hover:underline dark:text-primary-500"
                 >
                   Sign up
@@ -94,4 +94,4 @@ function SignIn() {
   );
 }
 
-export default SignIn;
+export default SignInPage;

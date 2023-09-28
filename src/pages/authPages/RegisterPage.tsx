@@ -2,7 +2,7 @@ import AppTextInput from "@/components/ui/AppTextInput";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FieldValues, useForm } from "react-hook-form";
-function Register() {
+function RegisterPage() {
   const router = useRouter();
   const {
     control,
@@ -16,7 +16,7 @@ function Register() {
     console.log("values 1", values);
     e.preventDefault();
     try {
-      const res = await fetch("http://localhost:3000/api/register", {
+      const res = await fetch("http://localhost:3000/api/auth/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -29,7 +29,7 @@ function Register() {
       if (res.ok) {
         const form = e.target;
         form.reset();
-        router.push("/auth/SignIn");
+        router.push("/authPages/SignInPage");
       } else {
         if (res.status == 403) {
           setError(
@@ -124,7 +124,7 @@ function Register() {
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                 Already have an account?{" "}
                 <Link
-                  href="/auth/SignIn"
+                  href="/authPages/SignInPage"
                   className="font-medium text-primary-600 hover:underline dark:text-primary-500"
                 >
                   Login here
@@ -138,4 +138,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default RegisterPage;

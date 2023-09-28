@@ -1,4 +1,5 @@
 import { signIn, signOut, useSession } from "next-auth/react";
+import Link from "next/link";
 import React from "react";
 
 function Navbar() {
@@ -7,7 +8,13 @@ function Navbar() {
     <div className="navbar bg-base-100">
       <div className="flex-1">
         <a className="btn btn-ghost normal-case text-xl">daisyUI</a>
+        <div className="flex flex-row gap-x-8">
+          <Link href="/dashboard">Dashboard</Link>
+          <Link href="/Admin">Admin</Link>
+          <Link href="/authPages/RegisterPage">Sign Up</Link>
+        </div>
       </div>
+
       {session ? (
         <div className="flex-none gap-2">
           <div className="dropdown dropdown-end">
