@@ -3,7 +3,6 @@ import { authOptions } from "@/server/auth-lib/authOptions";
 import { verifyJwt } from "@/server/auth-lib/createJWT";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth";
-import { getToken } from "next-auth/jwt";
 
 type Data = {
   name: string | undefined;

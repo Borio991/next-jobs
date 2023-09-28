@@ -7,6 +7,7 @@ export default withAuth(
       request.nextUrl.pathname.startsWith("/admin") &&
       request.nextauth.token?.role !== "admin"
     ) {
+      console.log("request.nextUrl.pathname :", request.nextUrl.pathname);
       return NextResponse.rewrite(new URL("/denied", request.url));
     }
   },
