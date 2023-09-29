@@ -1,15 +1,12 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { verifyJwt } from "@/server/auth-lib/createJWT";
 import type { NextApiRequest, NextApiResponse } from "next";
+import { Payload, verifyJwt } from "./createJWT";
 
-type Data = {
-  name: string | undefined;
-};
+interface Params {
+  req: NextApiRequest;
+  res: NextApiResponse;
+}
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Data>
-) {
+export function checkAdminApi({ req, res }: Params) {
   const accessToken = req.headers.authorization?.split(" ")[1];
   if (!accessToken) {
     return res.status(401).json({ name: "Unauthorized" });
@@ -23,5 +20,4 @@ export default async function handler(
       .status(403)
       .json({ name: `only admin can acces this - role ${payload?.role}` });
   }
-  return res.status(200).json({ name: "Hello admin" });
 }

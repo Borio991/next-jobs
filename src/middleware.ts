@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 
 export default withAuth(
   function middleware(request: NextRequestWithAuth) {
+    console.log(" request.nextUrl.pathname :", request.nextUrl.pathname);
     if (
       request.nextUrl.pathname.startsWith("/admin") &&
       request.nextauth.token?.role !== "admin"
@@ -16,6 +17,9 @@ export default withAuth(
       authorized({ token }) {
         return !!token;
       },
+    },
+    pages: {
+      signIn: "/authPages/SignInPage",
     },
   }
 );

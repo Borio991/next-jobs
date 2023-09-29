@@ -14,7 +14,7 @@ export const createJWT = (user: User) => {
   return token;
 };
 
-interface Payload extends JwtPayload {
+export interface Payload extends JwtPayload {
   id: string;
   email: string;
   role: string;
